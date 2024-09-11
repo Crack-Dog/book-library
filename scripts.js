@@ -1,3 +1,15 @@
+const dialog = document.querySelector("dialog");
+const modalButton = document.querySelector("dialog + button");
+const closeButton = document.querySelector("dialog button")
+
+modalButton.addEventListener("click", () => {
+    dialog.showModal();
+});
+
+closeButton.addEventListener("click", () => {
+    dialog.close();
+})
+
 const myLibrary = ['book1', 'book2', 'book3'];
 
 function Book() {
@@ -5,7 +17,7 @@ function Book() {
 }
 
 function addBook() {
-    pass;
+    addEventListener()
 }
 
 function bookDisplay(bookArray) {

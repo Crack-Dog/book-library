@@ -1,0 +1,11 @@
+.container {
+    display: grid;
+    background-color: lightblue;
+    grid-template-columns: repeat(10, 75px);
+    grid-template-rows: repeat(auto-fit, 150px);
+    gap: 15px;
+}
+
+.books {
+    background-color: aliceblue;
+}
