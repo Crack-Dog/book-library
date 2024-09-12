@@ -7,5 +7,7 @@
 }
 
 .books {
+    display: flex;
+    overflow: scroll;
     background-color: aliceblue;
 }
