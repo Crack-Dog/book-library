@@ -1,4 +1,4 @@
-
+const bookContainer = document.querySelector(".container");
 let bookNum = 0
 
 const dialog = document.querySelector("dialog");
@@ -33,21 +33,17 @@ newBook.addEventListener("submit", (event) => {
     let numPages = document.getElementById("numPages");
     let readBool = document.getElementById("readBool");
 
-    if (readBool.value === true){
-        readBool.value = true
-    }
-    else{
-        readBool.value = false
-    }
+    const book = new bookObj(titleName.value, authorName.value, numPages.value, readBool.value);
+    let bookInfo = document.createElement("div");
+    bookInfo.setAttribute('id', `book${bookNum+1})`);
+    bookInfo.textContent = `${book.info()}`
+    bookContainer.appendChild(bookInfo);
 
-        const book = new bookObj(titleName.value, authorName.value, numPages.value, readBool.value);
-        myLibrary.push(book);
-    bookDisplay(myLibrary);
+    myLibrary.push(book);
 })
 
 function bookDisplay(bookArray) {
     for (let i = 0; i < bookArray.length; i++) {
-        const bookContainer = document.querySelector(".container");
         let bookInfo = document.createElement("div");
         bookInfo.setAttribute('id', `book${bookNum+1}`);
         bookInfo.textContent = `${bookArray[i].info()}`;
@@ -57,12 +53,29 @@ function bookDisplay(bookArray) {
         const bookButton = document.createElement("button");
         bookButton.setAttribute('id', `remove${bookNum+1}`);
         bookButton.textContent = "Remove"
+
+        const readButton = document.createElement("button");
+        readButton.setAttribute('id', `read${bookNum+1}`)
+        readButton.textContent = 'Read/Unread'
+
         bookDisplay.appendChild(bookButton);
+        bookDisplay.appendChild(readButton);
+
         bookNum = bookNum + 1
 
         bookButton.addEventListener("click", () => {
             bookInfo.remove(bookButton.parentElement.id)
             });
+
+        readButton.addEventListener("click", () => {
+            bookArray[i].prototype.changeRead = function(){
+                if (this.readBool = true){
+                    this.readBool = false;
+                } else{
+                    this.readBool = true;
+                }
+            }
+        })
 
     }
 }
