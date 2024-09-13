@@ -31,14 +31,43 @@ newBook.addEventListener("submit", (event) => {
     let titleName = document.getElementById("titleName");
     let authorName = document.getElementById("authorName");
     let numPages = document.getElementById("numPages");
-    let readBool = document.getElementById("readBool");
+    let readBool = newBook.querySelector('input[name=readBool]:checked');
 
-    const book = new bookObj(titleName.value, authorName.value, numPages.value, readBool.value);
+    if (readBool === null){
+        readBool = false;
+    } else{
+        readBool = true;
+    }
+
+    const book = new bookObj(titleName.value, authorName.value, numPages.value, readBool);
     let bookInfo = document.createElement("div");
     bookInfo.setAttribute('id', `book${bookNum+1})`);
     bookInfo.textContent = `${book.info()}`
-    bookContainer.appendChild(bookInfo);
+    const bookButton = document.createElement("button");
+    bookButton.setAttribute('id', `remove${bookNum+1}`);
+    bookButton.textContent = "Remove"
+    const readButton = document.createElement("button");
+    readButton.setAttribute('id', `read${bookNum+1}`)
+    if (bookInfo.read === true){
+        readButton.textContent = 'Read'
+    } else{
+        readButton.textContent = 'Unread'
+    }
+    bookButton.addEventListener("click", () => {
+        bookInfo.remove(bookButton.parentElement.id)
+        });
 
+    readButton.addEventListener("click", () => {
+        if (readButton.textContent === 'Read'){
+            readButton.textContent = 'Unread';
+        } else{
+            readButton.textContent = 'Read'
+        }
+        });
+
+    bookContainer.appendChild(bookInfo);
+    bookInfo.appendChild(bookButton);
+    bookInfo.appendChild(readButton);
     myLibrary.push(book);
 })
 
@@ -56,7 +85,11 @@ function bookDisplay(bookArray) {
 
         const readButton = document.createElement("button");
         readButton.setAttribute('id', `read${bookNum+1}`)
-        readButton.textContent = 'Read/Unread'
+        if (bookArray[i].read === true){
+            readButton.textContent = 'Read'
+        } else{
+            readButton.textContent = 'Unread'
+        }
 
         bookDisplay.appendChild(bookButton);
         bookDisplay.appendChild(readButton);
@@ -68,14 +101,12 @@ function bookDisplay(bookArray) {
             });
 
         readButton.addEventListener("click", () => {
-            bookArray[i].prototype.changeRead = function(){
-                if (this.readBool = true){
-                    this.readBool = false;
-                } else{
-                    this.readBool = true;
-                }
+            if (readButton.textContent === 'Read'){
+                readButton.textContent = 'Unread';
+            } else{
+                readButton.textContent = 'Read'
             }
-        })
+            });
 
     }
 }
